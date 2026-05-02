@@ -107,7 +107,7 @@ export default function Menu({ onServicios, onContacto }: MenuProps) {
           ))}
         </div>
 
-        <audio ref={audioRef} src="/audio/promo.mp3" preload="none" />
+        <audio ref={audioRef} src="/audio.mp3" preload="auto" />
       </div>
     </div>
   );

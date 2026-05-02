@@ -1,13 +1,31 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 interface PortadaProps {
   onAdvance: () => void;
 }
 
 export default function Portada({ onAdvance }: PortadaProps) {
+  const [animationData, setAnimationData] = useState<unknown | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/animation.json')
+      .then((res) => res.json())
+      .then((data) => {
+        if (!cancelled) setAnimationData(data);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   useEffect(() => {
     const t = setTimeout(onAdvance, 3000);
     return () => clearTimeout(t);
@@ -25,9 +43,9 @@ export default function Portada({ onAdvance }: PortadaProps) {
         {[0, 0.4, 0.8].map((delay, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full border-2 border-sky-400/40"
-            style={{ width: 80, height: 80 }}
-            animate={{ scale: [1, 3], opacity: [0.6, 0] }}
+            className="absolute rounded-full border-2 border-sky-400/30"
+            style={{ width: 100, height: 100 }}
+            animate={{ scale: [1, 3], opacity: [0.5, 0] }}
             transition={{
               duration: 2,
               delay,
@@ -38,28 +56,24 @@ export default function Portada({ onAdvance }: PortadaProps) {
         ))}
       </div>
 
-      {[0, 1, 2, 3, 4, 5].map((i) => (
-        <motion.div
-          key={`drop-${i}`}
-          className="absolute w-2 h-3 bg-sky-300/70 rounded-full"
-          style={{ left: `${10 + i * 14}%`, top: '-10%' }}
-          animate={{ y: ['0vh', '110vh'], opacity: [0, 1, 0] }}
-          transition={{
-            duration: 2.5 + (i % 3) * 0.5,
-            delay: i * 0.3,
-            repeat: Infinity,
-            ease: 'easeIn',
-          }}
-        />
-      ))}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+        className="relative z-10 w-64 h-64 -mt-8"
+      >
+        {animationData ? (
+          <Lottie animationData={animationData} loop autoplay />
+        ) : null}
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 text-center"
+        transition={{ delay: 0.3, duration: 0.6 }}
+        className="relative z-10 text-center -mt-2"
       >
-        <h1 className="text-5xl font-extrabold text-white tracking-tight mb-3">
+        <h1 className="text-5xl font-extrabold text-white tracking-tight mb-2">
           AutoSplash
         </h1>
         <p className="text-lg text-sky-300 italic">
