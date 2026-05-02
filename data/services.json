@@ -1,0 +1,38 @@
+[
+  {
+    "nombre": "Lavado básico (coche)",
+    "precio": "$160",
+    "descripcion": "Lavado exterior con agua a presión y secado manual.",
+    "duracion": "20 min"
+  },
+  {
+    "nombre": "Lavado básico (camioneta)",
+    "precio": "$190",
+    "descripcion": "Lavado exterior con agua a presión y secado manual.",
+    "duracion": "25 min"
+  },
+  {
+    "nombre": "Lavado completo (coche)",
+    "precio": "$250",
+    "descripcion": "Lavado exterior + aspirado interior + limpieza de vidrios.",
+    "duracion": "45 min"
+  },
+  {
+    "nombre": "Lavado completo (camioneta)",
+    "precio": "$300",
+    "descripcion": "Lavado exterior + aspirado interior + limpieza de vidrios.",
+    "duracion": "60 min"
+  },
+  {
+    "nombre": "Encerado (coche)",
+    "precio": "$380",
+    "descripcion": "Lavado completo + aplicación de cera protectora a mano.",
+    "duracion": "90 min"
+  },
+  {
+    "nombre": "Encerado (camioneta)",
+    "precio": "$450",
+    "descripcion": "Lavado completo + aplicación de cera protectora a mano.",
+    "duracion": "2 hrs"
+  }
+]
